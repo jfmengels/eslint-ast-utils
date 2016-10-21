@@ -25,7 +25,9 @@
     "utils",
     "Utility"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "lodash.get": "^4.4.2"
+  },
   "devDependencies": {
     "ava": "^0.16.0",
     "espree": "^3.3.2",

@@ -9,6 +9,12 @@
 $ npm install --save ast-utils
 ```
 
+## Usage
+
+```js
+const astUtils = require('ast-utils');
+```
+
 
 ## API
 
@@ -24,16 +30,47 @@ Returns `true` if and only if:
 Example:
 ```js
 require('lodash');
+// => true
+require(foo);
+// => false
+foo('lodash');
+// => false
 ```
 
 Usage example (in the context of an ESLint rule):
 ```js
-const astUtils = require('ast-utils');
-
 function create(context) {
 	return {
 		CallExpression(node) {
-			if (astUtils.isStaticRequire(node) && node.arguments[0].value === 'underscore') {
+			if (astUtils.isStaticRequire(node)) {
+				context.report({
+					node: node,
+					message: 'Use import syntax rather than `require`'
+				});
+			}
+		}
+	};
+}
+```
+
+### astUtils.getRequireSource(node)
+
+Gets the source of a `require()` call. If `node` is not a `require` call (in the definition of [`isStaticRequire`](#astutilsisstaticrequirenode)), it will return `undefined`.
+
+Example:
+```js
+require('lodash');
+// => 'lodash'
+require('./foo');
+// => './foo'
+```
+
+Usage example (in the context of an ESLint rule):
+```js
+function create(context) {
+	return {
+		CallExpression(node) {
+			if (astUtils.isStaticRequire(node) && astUtils.getRequireSource(node) === 'underscore') {
 				context.report({
 					node: node,
 					message: 'Use `lodash` instead of `underscore`'
@@ -41,7 +78,7 @@ function create(context) {
 			}
 		}
 	};
-};
+}
 ```
 
 ## License
