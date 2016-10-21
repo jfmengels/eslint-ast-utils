@@ -81,6 +81,47 @@ function create(context) {
 }
 ```
 
+### astUtils.containsIdentifier(name, node)
+
+Checks if there is a reference to a variable named `name` inside of `node`.
+
+Returns true if and only if:
+- There is an `Identifier` named `name` inside of `node`
+- That `Identifier` is a variable (i.e. not a static property name for instance)
+- That `Identifier` does not reference a different variable named `name` introduced in a sub-scope of `node`.
+
+Example:
+```js
+foo(a);
+// containsIdentifier('a', node) // => true
+// containsIdentifier('b', node) // => true
+
+function foo(fn) {
+	return function(a) {
+		return fn(a);
+	};
+}
+// containsIdentifier('a', node) // => false
+```
+
+Usage example (in the context of an ESLint rule):
+```js
+function create(context) {
+	return {
+		FunctionDeclaration(node) {
+			node.params.forEach(param => {
+				if (param.type === 'Identifier' && !astUtils.containsIdentifier(param.name, node.body)) {
+					context.report({
+						node: node,
+						message: `${name} is never used`
+					});
+				}
+			});
+		}
+	};
+}
+```
+
 ## License
 
 MIT © [Jeroen Engels](https://github.com/jfmengels)

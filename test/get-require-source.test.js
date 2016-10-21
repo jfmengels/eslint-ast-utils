@@ -16,9 +16,9 @@ test('should return undefined if node is not a require call', t => {
 });
 
 test('should return the value of the first argument if node is a proper require call', t => {
-	t.true(lib.getRequireSource(utils.getExpression(`require('lodash')`)) === 'lodash');
-	t.true(lib.getRequireSource(utils.getExpression(`require('async')`)) === 'async');
-	t.true(lib.getRequireSource(utils.getExpression(`require('./')`)) === './');
-	t.true(lib.getRequireSource(utils.getExpression(`require('@cycle/dom')`)) === '@cycle/dom');
-	t.true(lib.getRequireSource(utils.getExpression(`require('../path/to/over/there')`)) === '../path/to/over/there');
+	t.true(lib.getRequireSource(utils.expression(`require('lodash')`)) === 'lodash');
+	t.true(lib.getRequireSource(utils.expression(`require('async')`)) === 'async');
+	t.true(lib.getRequireSource(utils.expression(`require('./')`)) === './');
+	t.true(lib.getRequireSource(utils.expression(`require('@cycle/dom')`)) === '@cycle/dom');
+	t.true(lib.getRequireSource(utils.expression(`require('../path/to/over/there')`)) === '../path/to/over/there');
 });

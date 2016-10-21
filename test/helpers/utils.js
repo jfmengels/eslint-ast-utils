@@ -2,10 +2,21 @@
 
 const espree = require('espree');
 
-function getExpression(code) {
-	return espree.parse(code).body[0].expression;
+function statement(code) {
+	return espree.parse(code, {
+		ecmaVersion: 8,
+		ecmaFeatures: {
+      jsx: true,
+      experimentalObjectRestSpread: true
+    }
+	}).body[0];
+}
+
+function expression(code) {
+	return statement(code).expression;
 }
 
 module.exports = {
-	getExpression
+	expression,
+	statement
 };
