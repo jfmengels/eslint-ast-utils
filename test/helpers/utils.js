@@ -6,9 +6,9 @@ function statement(code) {
 	return espree.parse(code, {
 		ecmaVersion: 8,
 		ecmaFeatures: {
-      jsx: true,
-      experimentalObjectRestSpread: true
-    }
+			jsx: true,
+			experimentalObjectRestSpread: true
+		}
 	}).body[0];
 }
 
