@@ -36,5 +36,11 @@
   },
   "xo": {
     "esnext": true
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }
