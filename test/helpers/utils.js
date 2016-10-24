@@ -2,14 +2,19 @@
 
 const espree = require('espree');
 
-function statement(code) {
+function program(code) {
 	return espree.parse(code, {
+		sourceType: 'module',
 		ecmaVersion: 8,
 		ecmaFeatures: {
 			jsx: true,
 			experimentalObjectRestSpread: true
 		}
-	}).body[0];
+	});
+}
+
+function statement(code) {
+	return program(code).body[0];
 }
 
 function expression(code) {
@@ -18,5 +23,6 @@ function expression(code) {
 
 module.exports = {
 	expression,
+	program,
 	statement
 };
