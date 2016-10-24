@@ -28,6 +28,7 @@ test('if node is a Literal', t => {
 test('if node is a BlockStatement', t => {
 	t.true(lib.containsIdentifier('foo', utils.statement(`{foo; bar;}`)));
 	t.true(lib.containsIdentifier('bar', utils.statement(`{foo; bar;}`)));
+	t.true(lib.containsIdentifier('foo', utils.statement(`{const {foo: baz} = bar; foo;}`)));
 
 	t.false(lib.containsIdentifier('baz', utils.statement(`{foo; bar;}`)));
 	t.false(lib.containsIdentifier('foo', utils.statement(`{const foo = 2;}`)));
@@ -35,6 +36,7 @@ test('if node is a BlockStatement', t => {
 	t.false(lib.containsIdentifier('foo', utils.statement(`{const bar = 3, foo = 2; foo;}`)));
 	t.false(lib.containsIdentifier('foo', utils.statement(`{foo; const foo = 2;}`)));
 	t.false(lib.containsIdentifier('foo', utils.statement(`{const {foo} = bar; foo;}`)));
+	t.false(lib.containsIdentifier('foo', utils.statement(`{const {baz: foo} = bar; foo;}`)));
 	t.false(lib.containsIdentifier('foo', utils.statement(`{const [foo] = bar; foo;}`)));
 });
 
