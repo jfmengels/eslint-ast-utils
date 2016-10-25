@@ -1,6 +1,6 @@
 {
   "name": "ast-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Utility library to manipulate ASTs",
   "license": "MIT",
   "repository": "jfmengels/ast-utils",
