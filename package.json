@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "ava": "^0.16.0",
+    "babel-eslint": "^7.0.0",
     "espree": "^3.3.2",
     "nyc": "^7.1.0",
     "xo": "^0.17.0"

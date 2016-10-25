@@ -22,7 +22,10 @@ function expression(code) {
 }
 
 module.exports = {
-	expression,
-	program,
-	statement
+	name: 'espree',
+	utils: {
+		expression,
+		program,
+		statement
+	}
 };
