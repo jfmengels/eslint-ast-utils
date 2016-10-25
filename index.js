@@ -6,5 +6,5 @@ module.exports = {
 	containsIdentifier: containsIdentifier.containsIdentifier,
 	getRequireSource: require('./lib/get-require-source'),
 	isStaticRequire: require('./lib/is-static-require'),
-	someContainsIdentifier: containsIdentifier.someContainsIdentifier
+	someContainIdentifier: containsIdentifier.someContainIdentifier
 };

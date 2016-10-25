@@ -122,6 +122,17 @@ function create(context) {
 }
 ```
 
+### astUtils.someContainIdentifier(name, nodes)
+
+Checks if there is a reference to a variable named `name` inside any node of the `nodes` array. Will return `false` if `nodes` is not an array.
+This is a shorthand version of [`containsIdentifier`](#astutilscontainsidentifier) that works for arrays. The following are equivalent:
+
+```js
+[node1, node2, node3].some(node => astUtils.containsIdentifier('a', node));
+// equivalent to
+astUtils.someContainIdentifier('a', [node1, node2, node3]);
+```
+
 ## License
 
 MIT © [Jeroen Engels](https://github.com/jfmengels)
