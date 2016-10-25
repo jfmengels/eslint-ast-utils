@@ -205,6 +205,17 @@ test('if node is a VariableDeclaration', t => {
 	t.false(lib.containsIdentifier('foo', utils.statement('const {...foo} = bar;')));
 });
 
+test('if node is in an assignment', t => {
+	t.true(lib.containsIdentifier('foo', utils.statement('foo = bar;')));
+	t.true(lib.containsIdentifier('foo', utils.statement('bar = foo;')));
+	t.true(lib.containsIdentifier('foo', utils.statement('[foo.baz] = bar;')));
+	t.true(lib.containsIdentifier('foo', utils.statement('[baz.baz, foo.bar] = bar;')));
+
+	t.false(lib.containsIdentifier('foo', utils.statement('bar = baz;')));
+	t.false(lib.containsIdentifier('foo', utils.statement('[baz.foo] = bar;')));
+	t.false(lib.containsIdentifier('foo', utils.statement('[baz.other] = bar;')));
+});
+
 test('if node is a or in a function', t => {
 	t.true(lib.containsIdentifier('foo', utils.statement('function bar() { foo }')));
 	t.true(lib.containsIdentifier('foo', utils.statement('function bar() { return foo }')));
