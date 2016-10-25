@@ -164,9 +164,11 @@ import espree from './helpers/espree';
 		t.true(lib.containsIdentifier('foo', utils.expression('a = { ...baz = foo, bar }')));
 
 		t.false(lib.containsIdentifier('foo', utils.expression('a = { foo: b }')));
+		t.false(lib.containsIdentifier('foo', utils.expression('a = { [bar]: b }')));
 		t.false(lib.containsIdentifier('foo', utils.expression('a = { "foo": b }')));
 		t.false(lib.containsIdentifier('foo', utils.expression('a = { foo() {} }')));
 		t.false(lib.containsIdentifier('foo', utils.expression('a = { ...bar, baz }')));
+		t.false(lib.containsIdentifier('foo', utils.expression('a = { ...bar = other, baz }')));
 	});
 
 	test(`(${name}) if node is in an array`, t => {
