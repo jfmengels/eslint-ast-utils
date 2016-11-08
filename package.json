@@ -1,9 +1,9 @@
 {
-  "name": "ast-utils",
+  "name": "eslint-ast-utils",
   "version": "1.0.0",
   "description": "Utility library to manipulate ASTs",
   "license": "MIT",
-  "repository": "jfmengels/ast-utils",
+  "repository": "jfmengels/eslint-ast-utils",
   "author": {
     "name": "Jeroen Engels",
     "email": "jfm.engels@gmail.com",

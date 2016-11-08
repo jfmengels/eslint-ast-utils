@@ -1,18 +1,18 @@
-# ast-utils [![Build Status](https://travis-ci.org/jfmengels/ast-utils.svg?branch=master)](https://travis-ci.org/jfmengels/ast-utils)
+# eslint-ast-utils [![Build Status](https://travis-ci.org/jfmengels/eslint-ast-utils.svg?branch=master)](https://travis-ci.org/jfmengels/eslint-ast-utils)
 
-> Utility library to manipulate ASTs
+> Utility library to manipulate ASTs for ESLint projects
 
 
 ## Install
 
 ```
-$ npm install --save ast-utils
+$ npm install --save eslint-ast-utils
 ```
 
 ## Usage
 
 ```js
-const astUtils = require('ast-utils');
+const astUtils = require('eslint-ast-utils');
 ```
 
 
