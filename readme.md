@@ -219,6 +219,64 @@ function create(context) {
 }
 ```
 
+### astUtils.isPromise(node)
+
+Checks whether `node` is a Promise.
+
+Returns `true` if and only if `node` is one of the following:
+- a call of an expression's `then` or `catch` properties
+- a call to `Promise.resolve`, `Promise.reject`, `Promise.race` or `Promise.all`
+- a call to `new Promise`
+
+If `node` uses unknown properties of a value that would be considered a Promise, `node` itself would not be considered as a Promise. Also, any unknown method of `Promise` is not considered as a Promise.
+
+Example:
+```js
+foo.then(fn);
+// => true
+foo.catch(fn);
+// => true
+foo.then(fn).catch(fn);
+// => true
+foo.then(fn).isFulfilled(fn); // isFulfilled(fn) may not return a Promise
+// => false
+
+Promise.resolve(value);
+// => true
+Promise.reject(value);
+// => true
+Promise.race(promises);
+// => true
+Promise.all(promises);
+// => true
+Promise.map(promises, fn);
+// => false
+
+new Promise(fn);
+// => true
+new Promise.resolve(value);
+// => false
+```
+
+Usage example:
+```js
+function create(context) {
+	function reportIfPromise(node) {
+		if (astUtils.isPromise(node)) {
+			context.report({
+				node: node,
+				message: 'Prefer using async/await'
+			});
+		}
+	}
+
+	return {
+		CallExpression: reportIfPromise,
+		NewExpression: reportIfPromise
+	};
+}
+```
+
 ## License
 
 MIT © [Jeroen Engels](https://github.com/jfmengels)
