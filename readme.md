@@ -23,7 +23,7 @@ const astUtils = require('eslint-ast-utils');
 Checks whether `node` is a call to CommonJS's `require` function.
 
 Returns `true` if and only if:
-- node is a `CallExpression`
+- `node` is a `CallExpression`
 - `node`'s callee is an `Identifier` named `require`
 - `node` has exactly 1 `Literal` argument whose value is a `string`
 
@@ -37,7 +37,7 @@ foo('lodash');
 // => false
 ```
 
-Usage example (in the context of an ESLint rule):
+Usage example:
 ```js
 function create(context) {
 	return {
@@ -65,7 +65,7 @@ require('./foo');
 // => './foo'
 ```
 
-Usage example (in the context of an ESLint rule):
+Usage example:
 ```js
 function create(context) {
 	return {
@@ -104,7 +104,7 @@ function foo(fn) {
 // containsIdentifier('a', node) // => false
 ```
 
-Usage example (in the context of an ESLint rule):
+Usage example:
 ```js
 function create(context) {
 	return {
