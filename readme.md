@@ -133,6 +133,47 @@ This is a shorthand version of [`containsIdentifier`](#astutilscontainsidentifie
 astUtils.someContainIdentifier('a', [node1, node2, node3]);
 ```
 
+### astUtils.getPropertyName(node)
+
+Get the name of a `MemberExpression`'s property. Returns:
+- a `string` if the property is accessed through dot notation.
+- a `string` if the property is accessed through brackets and is a string.
+- a `number` if the property is accessed through brackets and is a number.
+- `undefined` if `node` is not a `MemberExpression`
+- `undefined` if the property name is a hard to compute expression.
+
+Example:
+```js
+foo.bar
+// => 'bar'
+foo['bar']
+// => 'bar'
+foo[bar]
+// => undefined
+foo[0]
+// => 0 # Number
+foo[null]
+// => null
+foo[undefined]
+// => undefined
+```
+
+Usage example:
+```js
+function create(context) {
+	return {
+		MemberExpression(node) {
+			if (astUtils.getPropertyName(node).startsWith('_')) {
+				context.report({
+					node: node,
+					message: 'Don\'t access "private" fields'
+				});
+			}
+		}
+	};
+}
+```
+
 ## License
 
 MIT © [Jeroen Engels](https://github.com/jfmengels)
