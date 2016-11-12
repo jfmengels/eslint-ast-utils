@@ -146,6 +146,11 @@ bar\``)), toValue('foo\nbar'));
 		t.deepEqual(lib.computeStaticExpression(utils.expression(`false ? foo : 2`)), toValue(2));
 	});
 
+	test(`(${name}) should return value undefined when using the 'void' unary operator`, t => {
+		t.deepEqual(lib.computeStaticExpression(utils.expression(`void 2`)), toValue(undefined));
+		t.deepEqual(lib.computeStaticExpression(utils.expression(`void foo`)), toValue(undefined));
+	});
+
 	test(`(${name}) should undefined if one of the operands of a ternary expression is not statically knowable`, t => {
 		t.true(undefined === lib.computeStaticExpression(utils.expression(`foo ? 1 : 2`)));
 		t.true(undefined === lib.computeStaticExpression(utils.expression(`true ? foo : 2`)));
