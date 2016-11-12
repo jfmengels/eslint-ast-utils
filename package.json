@@ -26,7 +26,8 @@
     "Utility"
   ],
   "dependencies": {
-    "lodash.get": "^4.4.2"
+    "lodash.get": "^4.4.2",
+    "lodash.zip": "^4.2.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",

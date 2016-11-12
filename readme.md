@@ -174,6 +174,51 @@ function create(context) {
 }
 ```
 
+### astUtils.computeStaticExpression(node)
+
+Get the value of an expression that can be statically computed, i.e. without variables references or expressions too complex.
+
+Returns:
+- `undefined` if the value could not be statically computed.
+- An object with a `value` property containing the computed value.
+
+Example:
+```js
+foo
+// => undefined
+42
+// => {value: 42}
+'foo'
+// => {value: 'foo'}
+undefined
+// => {value: undefined}
+null
+// => {value: null}
+1 + 2 - 4 + (-1)
+// => {value: -2}
+true ? 1 : 2
+// => {value: 1}
+`foo ${'bar'}`
+// => {value: 'foo bar'}
+```
+
+Usage example:
+```js
+function create(context) {
+	return {
+		TemplateLiteral(node) {
+			const expression = astUtils.computeStaticExpression(node);
+			if (expression) {
+				context.report({
+					node: node,
+					message: `You can replace this template literal by the regular string '${expression.value}'.`
+				});
+			}
+		}
+	};
+}
+```
+
 ## License
 
 MIT © [Jeroen Engels](https://github.com/jfmengels)

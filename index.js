@@ -3,6 +3,7 @@
 const containsIdentifier = require('./lib/contains-identifier');
 
 module.exports = {
+	computeStaticExpression: require('./lib/compute-static-expression'),
 	containsIdentifier: containsIdentifier.containsIdentifier,
 	getPropertyName: require('./lib/get-property-name'),
 	getRequireSource: require('./lib/get-require-source'),
