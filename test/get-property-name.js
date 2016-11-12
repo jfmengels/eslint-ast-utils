@@ -23,7 +23,7 @@ import espree from './helpers/espree';
 		t.true(lib.getPropertyName(utils.expression(`foo.undefined`)) === 'undefined');
 	});
 
-	test(`(${name}) should return the value of the property if it is an Literal`, t => {
+	test(`(${name}) should return the value of the property if it is a Literal`, t => {
 		t.true(lib.getPropertyName(utils.expression(`foo['bar']`)) === 'bar');
 		t.true(lib.getPropertyName(utils.expression(`foo.bar['baz']`)) === 'baz');
 		t.true(lib.getPropertyName(utils.expression(`foo()['bar']`)) === 'bar');
@@ -35,10 +35,15 @@ import espree from './helpers/espree';
 		t.true(lib.getPropertyName(utils.expression(`foo[0]`)) === 0);
 	});
 
-	test(`(${name}) should return undefined if the property is an expression`, t => {
+	test(`(${name}) should return the index as a number of the property is a statically knowable expression`, t => {
+		t.true(lib.getPropertyName(utils.expression(`foo['th' + 'en']`)) === 'then');
+		t.true(lib.getPropertyName(utils.expression(`foo[1 + 2]`)) === 3);
+	});
+
+	test(`(${name}) should return undefined if the property is an expression that is not statically knowable`, t => {
 		t.true(undefined === lib.getPropertyName(utils.expression(`foo[bar]`)));
 		t.true(undefined === lib.getPropertyName(utils.expression(`foo[bar()]`)));
 		t.true(undefined === lib.getPropertyName(utils.expression(`foo[bar + baz]`)));
-		t.true(undefined === lib.getPropertyName(utils.expression(`foo[0 + 0]`)));
+		t.true(undefined === lib.getPropertyName(utils.expression(`foo[0 + bar]`)));
 	});
 });
