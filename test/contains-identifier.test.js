@@ -340,8 +340,9 @@ import espree from './helpers/espree';
 	test(`(${name}) if node is a try/catch`, t => {
 		t.true(lib.containsIdentifier('foo', utils.statement(`try { foo } catch(e) {}`)));
 		t.true(lib.containsIdentifier('foo', utils.statement(`try {} catch(e) { foo }`)));
+		t.true(lib.containsIdentifier('foo', utils.statement(`try {} finally { foo }`)));
 
-		t.false(lib.containsIdentifier('foo', utils.statement(`try { bar } catch(e) { baz }`)));
+		t.false(lib.containsIdentifier('foo', utils.statement(`try { bar } catch(e) { baz } finally { other  }`)));
 		t.false(lib.containsIdentifier('foo', utils.statement(`try { bar } catch(foo) { foo }`)));
 	});
 
