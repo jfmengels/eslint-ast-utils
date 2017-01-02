@@ -225,10 +225,10 @@ Checks whether `node` is a Promise.
 
 Returns `true` if and only if `node` is one of the following:
 - a call of an expression's `then` or `catch` properties
-- a call to `Promise.resolve`, `Promise.reject`, `Promise.race` or `Promise.all`
+- a call to a property of `Promise` (except `cancel`, `promisify`,  `promisifyAll` and `is`)
 - a call to `new Promise`
 
-If `node` uses unknown properties of a value that would be considered a Promise, `node` itself would not be considered as a Promise. Also, any unknown method of `Promise` is not considered as a Promise.
+If `node` uses unknown properties of a value that would be considered a Promise, `node` itself would not be considered as a Promise.
 
 Example:
 ```js
@@ -249,8 +249,8 @@ Promise.race(promises);
 // => true
 Promise.all(promises);
 // => true
-Promise.map(promises, fn);
-// => false
+Promise.map(promises, fn); // Bluebird method
+// => true
 
 new Promise(fn);
 // => true

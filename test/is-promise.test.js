@@ -51,13 +51,33 @@ import espree from './helpers/espree';
 		t.true(lib.isPromise(utils.expression(`Promise['race'](fn)`)));
 		t.true(lib.isPromise(utils.expression(`Promise['all'](fn)`)));
 
-		t.false(lib.isPromise(utils.expression(`Promise.foo(fn)`)));
 		t.false(lib.isPromise(utils.expression(`bar.resolve(fn)`)));
 		t.false(lib.isPromise(utils.expression(`bar.reject(fn)`)));
 		t.false(lib.isPromise(utils.expression(`bar.race(fn)`)));
 		t.false(lib.isPromise(utils.expression(`bar.all(fn)`)));
 		t.false(lib.isPromise(utils.expression(`foo.Promise.resolve(fn)`)));
 		t.false(lib.isPromise(utils.expression(`Promise.resolve(fn).map(fn)`)));
+	});
+
+	test(`(${name}) should return false when expression is a call to a known non-Promise returning method of 'Promise`, t => {
+		t.false(lib.isPromise(utils.expression(`Promise.is(fn)`)));
+		t.false(lib.isPromise(utils.expression(`Promise.cancel(fn)`)));
+		t.false(lib.isPromise(utils.expression(`Promise.promisify(fn)`)));
+		t.false(lib.isPromise(utils.expression(`Promise.promisifyAll(obj)`)));
+	});
+
+	// Mostly Bluebird methods
+	test(`(${name}) should return true when expression is a call to 'Promise.{anything}() except exceptions`, t => {
+		t.true(lib.isPromise(utils.expression(`Promise.map(input, fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.filter(input, fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.reduce(input, fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.each(input, fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.mapSeries(input, fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.filter(input, fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.fromCallback(fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.fromNode(fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise.using(fn)`)));
+		t.true(lib.isPromise(utils.expression(`Promise['map'](fn)`)));
 	});
 
 	test(`(${name}) should return true when calling 'new Promise(fn)'`, t => {
