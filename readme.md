@@ -277,6 +277,42 @@ function create(context) {
 }
 ```
 
+### astUtils.isFunctionExpression(node)
+
+Checks whether `node` is a function expression or an arrow function expression (not a function declaration).
+
+If `node` uses unknown properties of a value that would be considered a Promise, `node` itself would not be considered as a Promise.
+
+Example:
+```js
+(function foo() {})
+// => true
+() => {}
+// => true
+function foo() {} // function declaration
+// => false
+```
+
+Usage example:
+```js
+function create(context) {
+	return {
+		CallExpression(node) {
+			if (node.callee.type === 'Identifier'
+				&& node.callee.name === 'test'
+				&& !astUtils.isFunctionExpression(node.arguments[0])
+				&& !astUtils.isFunctionExpression(node.arguments[1])
+			) {
+				context.report({
+					node: node,
+					message: 'You need to pass a function to test()'
+				});
+			}
+		}
+	};
+}
+```
+
 ## License
 
 MIT © [Jeroen Engels](https://github.com/jfmengels)
