@@ -1,6 +1,6 @@
 {
   "name": "eslint-ast-utils",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Utility library to manipulate ASTs",
   "license": "MIT",
   "repository": "jfmengels/eslint-ast-utils",
